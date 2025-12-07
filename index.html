@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Multi-Agent Emergency Healthcare Triage (Demo)</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <h1 id="app-title">Multi-Agent Emergency Healthcare Triage</h1>
+      <select id="lang-select" style="float:right; margin-top:10px;">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="kn">ಕನ್ನಡ</option>
+      </select>
+      <p class="disclaimer">
+        Demo only. Not a medical diagnosis or treatment. If you feel unsafe or in danger, seek emergency care immediately.
+      </p>
+    </header>
+
+    <section class="card">
+      <h2>Triage form</h2>
+      <form id="triage-form">
+        <div class="grid-2">
+          <label class="full">
+            <span>Patient Name</span>
+            <input type="text" name="patientName" placeholder="e.g., John Doe" required />
+          </label>
+          <label>
+            <span>Age</span>
+            <input type="number" name="age" placeholder="e.g., 66" required />
+          </label>
+          <label>
+            <span>Sex</span>
+            <select name="sex" required>
+              <option value="unspecified">unspecified</option>
+              <option value="female">female</option>
+              <option value="male">male</option>
+              <option value="intersex">intersex</option>
+              <option value="prefer not to say">prefer not to say</option>
+            </select>
+          </label>
+
+          <label class="full">
+            <span>Symptoms (comma or newline separated)</span>
+            <textarea name="symptomsText" rows="3" placeholder="e.g., chest pain, shortness of breath, fever" required></textarea>
+          </label>
+
+          <label class="full">
+            <span>Symptom duration (hours)</span>
+            <input type="number" name="durationHours" placeholder="e.g., 3" required />
+          </label>
+
+          <label class="full">
+            <span>Location hint</span>
+            <input type="text" name="locationHint" value="Community Zone A" required />
+          </label>
+        </div>
+
+        <fieldset class="full">
+          <legend>Vitals (optional)</legend>
+          <div class="grid-5">
+            <label>
+              <span>HR</span>
+              <input type="number" name="heartRate" placeholder="e.g., 128" />
+            </label>
+            <label>
+              <span>SBP</span>
+              <input type="number" name="systolicBP" placeholder="e.g., 88" />
+            </label>
+            <label>
+              <span>DBP</span>
+              <input type="number" name="diastolicBP" placeholder="e.g., 60" />
+            </label>
+            <label>
+              <span>SpO2</span>
+              <input type="number" name="spo2" placeholder="e.g., 89" />
+            </label>
+            <label>
+              <span>Temp (°C)</span>
+              <input type="number" name="temperatureC" placeholder="e.g., 39" />
+            </label>
+          </div>
+        </fieldset>
+
+        <button id="submit-btn" type="submit">Run triage</button>
+        <span id="status" class="status"></span>
+      </form>
+    </section>
+
+    <section id="result" class="card hidden">
+      <h2>Triage result</h2>
+      <div class="grid-2">
+        <div>
+          <p><strong>Patient Name:</strong> <span id="patientName"></span></p>
+          <p><strong>Case ID:</strong> <span id="caseId"></span></p>
+          <p><strong>Severity band:</strong> <span id="severity"></span></p>
+          <p><strong>Priority:</strong> <span id="priority"></span></p>
+          <p><strong>Suggested specialties:</strong> <span id="specialties"></span></p>
+        </div>
+        <div>
+          <p><strong>Community plan:</strong></p>
+          <ul id="communityPlan"></ul>
+        </div>
+      </div>
+
+      <h3>Auto-generated report</h3>
+      <div id="report" class="codeblock"></div>
+    </section>
+
+    <section id="ledger" class="card hidden">
+      <h2>Agent ledger (explainability)</h2>
+      <div id="ledgerEntries"></div>
+    </section>
+
+    <section id="history" class="card">
+      <h2>Case History</h2>
+      <div id="caseHistory"></div>
+    </section>
+
+    <footer>
+      <p class="tiny">Built for hackathon demo. Transparent, modular agents. Replace with provider services for decentralized orchestration.</p>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+  <script src="jspdf.umd.min.js"></script>
+</body>
+</html>
